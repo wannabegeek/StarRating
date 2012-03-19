@@ -79,12 +79,12 @@
 - (void)layoutSubviews {
 	CGFloat width = (self.frame.size.width - (kStarPadding * (_numberOfStars + 1))) / _numberOfStars;
 	CGFloat cellWidth = MIN(self.frame.size.height, width);
-	
-	NSLog(@"FrameWidth/Height:%0.2f/%0.2f", self.frame.size.width, self.frame.size.height);
-	NSLog(@"CellWidth:%0.2f", cellWidth);
+
+	// We need to align the starts in the center of the view
+	CGFloat padding = (self.frame.size.width - (cellWidth * _numberOfStars + (kStarPadding * (_numberOfStars + 1)))) / 2.0f;
 	
 	[_stars enumerateObjectsUsingBlock:^(StarView *star, NSUInteger idx, BOOL *stop) {
-		star.frame = CGRectMake(kStarPadding + idx * cellWidth + idx * kStarPadding, 0, cellWidth, cellWidth);
+		star.frame = CGRectMake(padding + kStarPadding + idx * cellWidth + idx * kStarPadding, 0, cellWidth, cellWidth);
 	}];
 }
 
@@ -109,7 +109,18 @@
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
 	CGPoint point = [touch locationInView:self];	
 	NSUInteger index = [self indexForStarAtPoint:point];
-	[self setRating:index];
+	if (index != NSNotFound) {
+		[self setRating:index+1];
+		if ([self.delegate respondsToSelector:@selector(starRatingControl:willUpdateRating:)]) {
+			[self.delegate starRatingControl:self willUpdateRating:self.rating];
+		}
+	} else if (point.x < ((UIButton*)[_stars objectAtIndex:0]).frame.origin.x) {
+		[self setRating:0];
+		if ([self.delegate respondsToSelector:@selector(starRatingControl:willUpdateRating:)]) {
+			[self.delegate starRatingControl:self willUpdateRating:self.rating];
+		}
+	}
+
 	return YES;		
 }
 
@@ -122,15 +133,23 @@
 
 	NSUInteger index = [self indexForStarAtPoint:point];
 	if (index != NSNotFound) {
-		[self setRating:index];
+		[self setRating:index + 1];
+		if ([self.delegate respondsToSelector:@selector(starRatingControl:willUpdateRating:)]) {
+			[self.delegate starRatingControl:self willUpdateRating:self.rating];
+		}
 	} else if (point.x < ((UIButton*)[_stars objectAtIndex:0]).frame.origin.x) {
 		[self setRating:0];
+		if ([self.delegate respondsToSelector:@selector(starRatingControl:willUpdateRating:)]) {
+			[self.delegate starRatingControl:self willUpdateRating:self.rating];
+		}
 	}
 	return YES;
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-	[self.delegate starRatingControl:self didUpdateRating:self.rating];
+	if ([self.delegate respondsToSelector:@selector(starRatingControl:didUpdateRating:)]) {
+		[self.delegate starRatingControl:self didUpdateRating:self.rating];
+	}
 	[super endTrackingWithTouch:touch withEvent:event];
 }
 
@@ -140,12 +159,12 @@
 - (void)setRating:(NSUInteger)rating {
 	_currentIdx = rating;
 	[_stars enumerateObjectsUsingBlock:^(StarView *star, NSUInteger idx, BOOL *stop) {
-		star.highlighted = (idx <= _currentIdx);
+		star.highlighted = (idx < _currentIdx);
 	}];
 }
 
 - (NSUInteger)rating {
-	return (NSUInteger)_currentIdx+1;
+	return (NSUInteger)_currentIdx;
 }
 
 @end

@@ -20,7 +20,7 @@
 		[self setImage:highlightedStar forState:UIControlStateSelected];
 		[self setImage:highlightedStar forState:UIControlStateHighlighted];
 		[self setTag:index];
-		[self setBackgroundColor:[UIColor blueColor]];
+		[self setBackgroundColor:[UIColor clearColor]];
 	}
 	return self;
 }

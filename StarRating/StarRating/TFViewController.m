@@ -9,15 +9,22 @@
 #import "TFViewController.h"
 
 @interface TFViewController ()
+@property (strong) NSArray *ratingLabels;
 
 @end
 
 @implementation TFViewController
 
+@synthesize ratingLabel = _ratingLabel;
+@synthesize ratingLabels = _ratingLabels;
+@synthesize starRatingControl = _starRatingControl;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	_ratingLabels = [NSArray arrayWithObjects:@"Unrated", @"Hate it", @"Don't like it", @"It's OK", @"It's good", @"It's great", nil];
+	
+	_starRatingControl.delegate = self;
 }
 
 - (void)viewDidUnload
@@ -29,6 +36,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (void)starRatingControl:(StarRatingControl *)control didUpdateRating:(NSUInteger)rating {
+	_ratingLabel.text = [_ratingLabels objectAtIndex:rating];
+}
+
+- (void)starRatingControl:(StarRatingControl *)control willUpdateRating:(NSUInteger)rating {
+	_ratingLabel.text = [_ratingLabels objectAtIndex:rating];
 }
 
 @end
