@@ -6,7 +6,6 @@
 //
 
 #import "StarRatingControl.h"
-#import "StarView.h"
 
 #define kDefaultNumberOfStars 5
 #define kStarPadding 5.0f
@@ -42,7 +41,7 @@
 	_highlightedStar = [UIImage imageNamed:@"star_highlighted.png"];
 	NSMutableArray *s = [NSMutableArray arrayWithCapacity:_numberOfStars];
 	for (int i=0; i<_numberOfStars; i++) {
-		StarView *v = [[StarView alloc] initWithDefault:_star highlighted:_highlightedStar position:i];
+		UIImageView *v = [[UIImageView alloc] initWithImage:_star highlightedImage:_highlightedStar];
 		[self addSubview:v];
 		[s addObject:v];
 	}
@@ -83,7 +82,7 @@
 	// We need to align the starts in the center of the view
 	CGFloat padding = (self.frame.size.width - (cellWidth * _numberOfStars + (kStarPadding * (_numberOfStars + 1)))) / 2.0f;
 	
-	[_stars enumerateObjectsUsingBlock:^(StarView *star, NSUInteger idx, BOOL *stop) {
+	[_stars enumerateObjectsUsingBlock:^(UIImageView *star, NSUInteger idx, BOOL *stop) {
 		star.frame = CGRectMake(padding + kStarPadding + idx * cellWidth + idx * kStarPadding, 0, cellWidth, cellWidth);
 	}];
 }
@@ -91,8 +90,8 @@
 #pragma mark -
 #pragma mark Touch Handling
 
-- (UIButton*)starForPoint:(CGPoint)point {
-	for (StarView *star in _stars) {
+- (UIImageView*)starForPoint:(CGPoint)point {
+	for (UIImageView *star in _stars) {
 		if (CGRectContainsPoint(star.frame, point)) {
 			return star;
 		}
@@ -114,7 +113,7 @@
 		if ([self.delegate respondsToSelector:@selector(starRatingControl:willUpdateRating:)]) {
 			[self.delegate starRatingControl:self willUpdateRating:self.rating];
 		}
-	} else if (point.x < ((UIButton*)[_stars objectAtIndex:0]).frame.origin.x) {
+	} else if (point.x < ((UIImageView *)[_stars objectAtIndex:0]).frame.origin.x) {
 		[self setRating:0];
 		if ([self.delegate respondsToSelector:@selector(starRatingControl:willUpdateRating:)]) {
 			[self.delegate starRatingControl:self willUpdateRating:self.rating];
@@ -137,7 +136,7 @@
 		if ([self.delegate respondsToSelector:@selector(starRatingControl:willUpdateRating:)]) {
 			[self.delegate starRatingControl:self willUpdateRating:self.rating];
 		}
-	} else if (point.x < ((UIButton*)[_stars objectAtIndex:0]).frame.origin.x) {
+	} else if (point.x < ((UIImageView*)[_stars objectAtIndex:0]).frame.origin.x) {
 		[self setRating:0];
 		if ([self.delegate respondsToSelector:@selector(starRatingControl:willUpdateRating:)]) {
 			[self.delegate starRatingControl:self willUpdateRating:self.rating];
@@ -158,7 +157,7 @@
 
 - (void)setRating:(NSUInteger)rating {
 	_currentIdx = rating;
-	[_stars enumerateObjectsUsingBlock:^(StarView *star, NSUInteger idx, BOOL *stop) {
+	[_stars enumerateObjectsUsingBlock:^(UIImageView *star, NSUInteger idx, BOOL *stop) {
 		star.highlighted = (idx < _currentIdx);
 	}];
 }

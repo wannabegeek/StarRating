@@ -16,7 +16,6 @@
 		E2CC96B615167664005F2579 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2CC96B415167664005F2579 /* MainStoryboard.storyboard */; };
 		E2CC96B915167664005F2579 /* TFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CC96B815167664005F2579 /* TFViewController.m */; };
 		E2CC96C31516767E005F2579 /* StarRatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CC96C01516767E005F2579 /* StarRatingControl.m */; };
-		E2CC96C41516767E005F2579 /* StarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CC96C21516767E005F2579 /* StarView.m */; };
 		E2CC96CB151676B4005F2579 /* star_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC96C7151676B4005F2579 /* star_highlighted@2x.png */; };
 		E2CC96CC151676B4005F2579 /* star_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC96C8151676B4005F2579 /* star_highlighted.png */; };
 		E2CC96CD151676B4005F2579 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC96C9151676B4005F2579 /* star@2x.png */; };
@@ -39,8 +38,6 @@
 		E2CC96B815167664005F2579 /* TFViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TFViewController.m; sourceTree = "<group>"; };
 		E2CC96BF1516767E005F2579 /* StarRatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarRatingControl.h; sourceTree = "<group>"; };
 		E2CC96C01516767E005F2579 /* StarRatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarRatingControl.m; sourceTree = "<group>"; };
-		E2CC96C11516767E005F2579 /* StarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarView.h; sourceTree = "<group>"; };
-		E2CC96C21516767E005F2579 /* StarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarView.m; sourceTree = "<group>"; };
 		E2CC96C7151676B4005F2579 /* star_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted@2x.png"; sourceTree = "<group>"; };
 		E2CC96C8151676B4005F2579 /* star_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_highlighted.png; sourceTree = "<group>"; };
 		E2CC96C9151676B4005F2579 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
@@ -119,8 +116,6 @@
 				E2CC96C6151676A3005F2579 /* images */,
 				E2CC96BF1516767E005F2579 /* StarRatingControl.h */,
 				E2CC96C01516767E005F2579 /* StarRatingControl.m */,
-				E2CC96C11516767E005F2579 /* StarView.h */,
-				E2CC96C21516767E005F2579 /* StarView.m */,
 			);
 			name = StarRating;
 			sourceTree = "<group>";
@@ -207,7 +202,6 @@
 				E2CC96B315167664005F2579 /* TFAppDelegate.m in Sources */,
 				E2CC96B915167664005F2579 /* TFViewController.m in Sources */,
 				E2CC96C31516767E005F2579 /* StarRatingControl.m in Sources */,
-				E2CC96C41516767E005F2579 /* StarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +313,7 @@
 				E2CC96BE15167664005F2579 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
